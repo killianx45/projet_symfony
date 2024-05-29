@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% block title %}Blog Symfony - Accueil{% endblock %}
+{% block body %}
+    <nav>
+        <ul>
+            <li><a href="{{ path('home.index') }}">Accueil</a></li>
+            <li><a href="{{ path('security.login') }}">Connexion</a></li>
+            <li><a href="{{ path('security.registration') }}">Inscription</a></li>
+            {% if app.user %}
+                <li><a href="{{ path('article.index') }}">Articles</a></li>
+                <li><a href="{{ path('security.logout') }}">Déconnexion</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <h1>Bienvenue sur le blog symfony !</h1>
+    <p>Vous trouverez ici les derniers articles publiés sur le blog.</p>
+    <h2>Les derniers articles</h2>
+    <ul>
+        {% for article in articles %}
+            <li>
+                <h3>{{ article.name }}</h3>
+                <p>{{ article.content|slice(0, 100) ~ '...' }}</p>
+                <a href="{{ path('article.show', {'id': article.id}) }}">Lire la suite</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
