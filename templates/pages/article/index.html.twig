@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projet Blog Symfony - Mes Articles{% endblock %}
+
+{% block body %}
+<div>
+    {% for message in app.flashes('success') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+    <h1>Mes Articles</h1>
+
+
+    <a href="{{ path('article.new') }}" >Ajouter un article</a>
+
+    <table>
+        <thead>
+          <tr>
+            <th scope="col">Numéro</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Description</th>
+            <th scope="col">Contenu</th>
+            <th scope="col">Date de création</th>
+            <th scope="col">Edition</th>
+            <th scope="col">Suppression</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+                <tr class="table-primary">
+                    <th scope="row">{{ article.id}}</th>
+                    <td><a href="{{ path('article.show', {'id' : article.id}) }}">{{ article.name}}</a></td>
+                    <td>{{ article.description}}</td>
+                    <td>{{ article.content|slice(0,100) ~ '...' }}</td>
+                    <td>{{ article.createdAt|date("d/m/Y")}}</td>
+                    {% if article.user == app.user %}
+                    <td><a href="{{ path('article.edit', {'id' : article.id}) }}">Editer</a></td>
+                    <td>
+                        <form action="{{ path('article.delete', {'id' : article.id}) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet article ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                    {% else %}
+                    <td>Modification non disponible</td>
+                    <td>Suppression non disponible</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+        <div role="alert">
+            Vous n'avez pas encore de recettes.
+        </div>
+        <a href="{{ path('article.new') }}">Ajouter une recette</a>
+</div>
+{% endblock %}

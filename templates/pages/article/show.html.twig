@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Projet Blog Symfony - {{ article.name }}{% endblock %}
+
+{% block body %}
+  <div>
+    <h1>{{ article.name }}</h1>
+    {% for message in app.flashes('success') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+    <div>
+      {{ article.description|raw }}
+    </div>
+    <div>
+      {{ article.content|raw }}
+    </div>
+
+    {{ form(form) }}
+  </div>
+{% endblock %}

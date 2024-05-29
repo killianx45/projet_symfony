@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Projet Blog Symfony - Ajouter un article{% endblock %}
+
+{% block body %}
+<div>
+
+    <h1>Ajouter un article</h1>
+
+    <a href="{{ path('article.index') }}" >Retour à la liste des articles</a>
+
+    {{ form_start(form) }}
+
+    <div>
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        <div>{{ form_errors(form.name) }}</div>
+    </div>
+
+    <div>
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        <div>{{ form_errors(form.description) }}</div>
+    </div>
+
+    <div>
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content) }}
+        <div>{{ form_errors(form.content) }}</div>
+    </div>
+
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Projet Blog Symfony - Modifier un article{% endblock %}
+
+{% block body %}
+<div>
+
+    <h1>Modification de l'article</h1>
+
+
+    {{ form_start(form) }}
+
+    <div>
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        <div>{{ form_errors(form.name) }}</div>
+    </div>
+
+    <div>
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        <div>{{ form_errors(form.description) }}</div>
+    </div>
+
+    <div>
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content) }}
+        <div>{{ form_errors(form.content) }}</div>
+    </div>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}
